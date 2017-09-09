@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Post
+from .models import Post, Detail
+from django.views.generic import View
 #from .forms import PostForm
 #login
 from django.contrib.auth.decorators import login_required
@@ -8,9 +9,20 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
-def post_list(request):
+class post_list(View):
+    def get(self, request):
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+        detail = Detail.objects.all()
+        context = {
+        'posts': posts,
+        'detail': detail
+        }
+        return render(request, "post_list.html", context)
+
+
+''' def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'post_list.html', {'posts': posts})
+    return render(request, 'post_list.html', {'posts': posts}) '''
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)

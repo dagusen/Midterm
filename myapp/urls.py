@@ -18,7 +18,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.post_list, name='post_list'),
+    #url(r'^$', views.post_list, name='post_list'),
+    url(r'^$', views.post_list.as_view(), name='post_list'),
     url(r'^post/(?P<pk>\d+)/$', views.post_detail, name='post_detail'),
     #authentication
     url(r'^$', auth_views.login, {'template_name': 'base.html'}, name='login'),

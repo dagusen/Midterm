@@ -13,4 +13,31 @@
 	</div>
 {% endfor %}
 
+<!-- accordion -->
+<div id="accordion" role="tablist" aria-multiselectable="true">
+    {% for post in posts %}
+    <div class="card">
+        <div class="card-header" role="tab" id="heading{{ forloop.counter }}">
+        <h5 class="mb-0">
+        	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+        	{{ post.title }}
+       		</a>
+        </h5>
+        </div>
+        <div id="collapse{{ forloop.counter }}" class="collapse" role="tabpanel" aria-labelledby="heading">
+        	<div class="card-block">
+            {% for detail in post.detail.all %}
+				<p>{{ detail.first_name }}</p>
+				<p>{{ detail.last_name }}</p>
+				<p>{{ detail.middle_name }}</p>
+				<p>{{ detail.age }}</p>
+			{% endfor %}
+
+				
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}
